@@ -9,8 +9,12 @@ var IndexRoute = Router.IndexRoute;
 
 module.exports = (
   <Route path="/" component={Main}>
-    <Route path="dashboard/:username" component={Dashboard} />
-    <IndexRoute component={Home} />
-    <IndexRoute component={Login} />
+    <Route component={Home} >
+      <IndexRoute component={Login} />
+    </Route>
+
+
+    <Route path='dashboard' component={Dashboard} />
+
   </Route>
 );

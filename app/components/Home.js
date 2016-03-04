@@ -3,9 +3,13 @@ var React = require('react');
 var Home = React.createClass({
   render: function(){
     return(
-      <h2 className="text-center">
-        Welcome to CCMS
-      </h2>
+      <div className='loginWrapper' style={{textAlign:'center'}}>
+        <span style={{fontSize: '5em', position: 'relative', top: '.7em', color:'white'}} >
+          Welcome to CCMS
+        </span>
+        {this.props.children}
+
+      </div>
     )
   }
 })

@@ -24701,9 +24701,12 @@
 	module.exports = React.createElement(
 	  Route,
 	  { path: '/', component: Main },
-	  React.createElement(Route, { path: 'dashboard/:username', component: Dashboard }),
-	  React.createElement(IndexRoute, { component: Home }),
-	  React.createElement(IndexRoute, { component: Login })
+	  React.createElement(
+	    Route,
+	    { component: Home },
+	    React.createElement(IndexRoute, { component: Login })
+	  ),
+	  React.createElement(Route, { path: 'dashboard', component: Dashboard })
 	);
 
 /***/ },
@@ -24722,11 +24725,7 @@
 	    return React.createElement(
 	      "div",
 	      { className: "main-container" },
-	      React.createElement(
-	        "div",
-	        { className: "container" },
-	        this.props.children
-	      )
+	      this.props.children
 	    );
 	  }
 	});
@@ -24737,18 +24736,23 @@
 /* 218 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	var React = __webpack_require__(1);
 
 	var Home = React.createClass({
-	  displayName: "Home",
+	  displayName: 'Home',
 
 	  render: function render() {
 	    return React.createElement(
-	      "h2",
-	      { className: "text-center" },
-	      "Welcome to CCMS"
+	      'div',
+	      { className: 'loginWrapper', style: { textAlign: 'center' } },
+	      React.createElement(
+	        'span',
+	        { style: { fontSize: '5em', position: 'relative', top: '.7em', color: 'white' } },
+	        'Welcome to CCMS'
+	      ),
+	      this.props.children
 	    );
 	  }
 	});
@@ -24764,6 +24768,7 @@
 	var _reactRouter = __webpack_require__(159);
 
 	var React = __webpack_require__(1);
+	var Router = __webpack_require__(159);
 
 
 	var Login = React.createClass({
@@ -24785,7 +24790,6 @@
 	  submitForm: function submitForm() {
 	    console.log(this.state);
 	    window.localStorage.setItem('user', JSON.stringify(this.state));
-	    _reactRouter.browserHistory.push('dashboard/asda');
 	  },
 
 	  render: function render() {
@@ -24801,8 +24805,10 @@
 	          { className: 'form-signin-heading' },
 	          'Please login'
 	        ),
-	        React.createElement('input', { type: 'text', className: 'form-control', name: 'firstName', placeholder: 'First Name', onChange: this.onChange, required: '', autofocus: '' }),
-	        React.createElement('input', { type: 'text', className: 'form-control', name: 'LastName', placeholder: 'Last Name', onChange: this.onChange, required: '' }),
+	        React.createElement('input', { type: 'text', className: 'form-control', name: 'firstName',
+	          placeholder: 'First Name', onChange: this.onChange, required: 'true', autofocus: '' }),
+	        React.createElement('input', { type: 'text', className: 'form-control', name: 'LastName',
+	          placeholder: 'Last Name', onChange: this.onChange, required: 'true' }),
 	        React.createElement('br', null),
 	        React.createElement(
 	          'h2',
@@ -24829,8 +24835,8 @@
 	        React.createElement('br', null),
 	        React.createElement('br', null),
 	        React.createElement(
-	          'button',
-	          { className: 'btn btn-lg btn-primary btn-block', onClick: this.submitForm },
+	          _reactRouter.Link,
+	          { to: '/dashboard', className: 'btn btn-lg btn-primary btn-block', onClick: this.submitForm },
 	          '  Login'
 	        )
 	      )
@@ -24869,7 +24875,7 @@
 	    console.log('this.state.cases', this.state.cases);
 	    return React.createElement(
 	      'div',
-	      null,
+	      { className: 'main-container' },
 	      React.createElement(
 	        'h3',
 	        null,
