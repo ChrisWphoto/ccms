@@ -25,7 +25,10 @@ var  Login = React.createClass({
   render: function() {
 
     return (
-        
+      <div className='loginWrapper' style={{textAlign:'center'}}>
+        <span style={{fontSize: '5em', position: 'relative', top: '.7em', color:'white'}} >
+          Welcome to CCMS
+        </span>
         <div className="wrapper" style={{textAlign: 'center'}} >
            <form className="form-signin">
              <h2 className="form-signin-heading">Please login</h2>
@@ -46,6 +49,7 @@ var  Login = React.createClass({
 
            </form>
          </div>
+       </div>
     );
   }
 

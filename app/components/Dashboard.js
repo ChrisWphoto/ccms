@@ -20,7 +20,7 @@ var Dashboard = React.createClass({
   render: function() {
     console.log('this.state.cases', this.state.cases);
     return (
-      <div className="main-container">
+      <div className="container">
       <h3> Cases for {this.props.params.username} </h3>
       <CaseList cases={this.state.cases}/>
       </div>

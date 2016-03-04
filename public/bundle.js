@@ -24701,12 +24701,12 @@
 	module.exports = React.createElement(
 	  Route,
 	  { path: '/', component: Main },
+	  React.createElement(IndexRoute, { component: Login }),
 	  React.createElement(
 	    Route,
 	    { component: Home },
-	    React.createElement(IndexRoute, { component: Login })
-	  ),
-	  React.createElement(Route, { path: 'dashboard', component: Dashboard })
+	    React.createElement(Route, { path: 'dashboard', component: Dashboard })
+	  )
 	);
 
 /***/ },
@@ -24743,14 +24743,33 @@
 	var Home = React.createClass({
 	  displayName: 'Home',
 
+
+	  getInitialState: function getInitialState() {
+
+	    return {
+	      userInfo: JSON.parse(window.localStorage.getItem('user'))
+	    };
+	  },
+
 	  render: function render() {
 	    return React.createElement(
 	      'div',
-	      { className: 'loginWrapper', style: { textAlign: 'center' } },
+	      { className: 'main-container' },
 	      React.createElement(
-	        'span',
-	        { style: { fontSize: '5em', position: 'relative', top: '.7em', color: 'white' } },
-	        'Welcome to CCMS'
+	        'nav',
+	        { className: 'navbar navbar-default', role: 'navigation' },
+	        React.createElement(
+	          'div',
+	          { className: 'col-sm-7', style: { marginTop: 15 } },
+	          React.createElement(
+	            'span',
+	            { className: 'glyphicon glyphicon-user' },
+	            ' ',
+	            this.state.userInfo.firstName,
+	            ' ',
+	            this.state.userInfo.LastName
+	          )
+	        )
 	      ),
 	      this.props.children
 	    );
@@ -24796,48 +24815,57 @@
 
 	    return React.createElement(
 	      'div',
-	      { className: 'wrapper', style: { textAlign: 'center' } },
+	      { className: 'loginWrapper', style: { textAlign: 'center' } },
 	      React.createElement(
-	        'form',
-	        { className: 'form-signin' },
+	        'span',
+	        { style: { fontSize: '5em', position: 'relative', top: '.7em', color: 'white' } },
+	        'Welcome to CCMS'
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'wrapper', style: { textAlign: 'center' } },
 	        React.createElement(
-	          'h2',
-	          { className: 'form-signin-heading' },
-	          'Please login'
-	        ),
-	        React.createElement('input', { type: 'text', className: 'form-control', name: 'firstName',
-	          placeholder: 'First Name', onChange: this.onChange, required: 'true', autofocus: '' }),
-	        React.createElement('input', { type: 'text', className: 'form-control', name: 'LastName',
-	          placeholder: 'Last Name', onChange: this.onChange, required: 'true' }),
-	        React.createElement('br', null),
-	        React.createElement(
-	          'h2',
-	          null,
-	          ' Select User Type '
-	        ),
-	        React.createElement(
-	          'div',
-	          { className: 'btn-group', style: { margin: '25px auto' }, role: 'group', 'aria-label': '...' },
+	          'form',
+	          { className: 'form-signin' },
 	          React.createElement(
-	            'button',
-	            { type: 'button', name: 'caseMngr', onClick: this.selectUserType.bind(this, 'Case Manager'), className: 'btn btn-default' },
-	            ' ',
-	            React.createElement('span', { className: 'glyphicon glyphicon-briefcase', 'aria-hidden': 'true' }),
-	            ' Case Manager'
+	            'h2',
+	            { className: 'form-signin-heading' },
+	            'Please login'
+	          ),
+	          React.createElement('input', { type: 'text', className: 'form-control', name: 'firstName',
+	            placeholder: 'First Name', onChange: this.onChange, required: 'true', autofocus: '' }),
+	          React.createElement('input', { type: 'text', className: 'form-control', name: 'LastName',
+	            placeholder: 'Last Name', onChange: this.onChange, required: 'true' }),
+	          React.createElement('br', null),
+	          React.createElement(
+	            'h2',
+	            null,
+	            ' Select User Type '
 	          ),
 	          React.createElement(
-	            'button',
-	            { type: 'button', name: 'admin', onClick: this.selectUserType.bind(this, 'Admin'), className: 'btn btn-default' },
-	            React.createElement('span', { className: 'glyphicon glyphicon-globe', 'aria-hidden': 'true' }),
-	            ' Admin'
+	            'div',
+	            { className: 'btn-group', style: { margin: '25px auto' }, role: 'group', 'aria-label': '...' },
+	            React.createElement(
+	              'button',
+	              { type: 'button', name: 'caseMngr', onClick: this.selectUserType.bind(this, 'Case Manager'), className: 'btn btn-default' },
+	              ' ',
+	              React.createElement('span', { className: 'glyphicon glyphicon-briefcase', 'aria-hidden': 'true' }),
+	              ' Case Manager'
+	            ),
+	            React.createElement(
+	              'button',
+	              { type: 'button', name: 'admin', onClick: this.selectUserType.bind(this, 'Admin'), className: 'btn btn-default' },
+	              React.createElement('span', { className: 'glyphicon glyphicon-globe', 'aria-hidden': 'true' }),
+	              ' Admin'
+	            )
+	          ),
+	          React.createElement('br', null),
+	          React.createElement('br', null),
+	          React.createElement(
+	            _reactRouter.Link,
+	            { to: '/dashboard', className: 'btn btn-lg btn-primary btn-block', onClick: this.submitForm },
+	            '  Login'
 	          )
-	        ),
-	        React.createElement('br', null),
-	        React.createElement('br', null),
-	        React.createElement(
-	          _reactRouter.Link,
-	          { to: '/dashboard', className: 'btn btn-lg btn-primary btn-block', onClick: this.submitForm },
-	          '  Login'
 	        )
 	      )
 	    );
@@ -24875,7 +24903,7 @@
 	    console.log('this.state.cases', this.state.cases);
 	    return React.createElement(
 	      'div',
-	      { className: 'main-container' },
+	      { className: 'container' },
 	      React.createElement(
 	        'h3',
 	        null,

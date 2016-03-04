@@ -6,8 +6,6 @@ var Main = React.createClass({
     return (
       <div className="main-container">
           {this.props.children}
-
-
       </div>
     )
   }
